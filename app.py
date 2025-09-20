@@ -5,7 +5,7 @@ import numpy as np
 from datetime import datetime
 
 # Load your trained model
-model = joblib.load("risk_model.pkl")  # <-- replace with your model file name
+model = joblib.load("geofence_risk_model.pkl")  # <-- replace with your model file name
 
 app = FastAPI(title="Risk Prediction API")
 
@@ -46,3 +46,4 @@ def predict(data: InputData):
         "risk_score": risk_score,
         "risk_level": risk_level
     }
+
