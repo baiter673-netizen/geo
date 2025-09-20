@@ -1,9 +1,18 @@
 import pandas as pd
-import joblib
 from datetime import datetime
+from huggingface_hub import hf_hub_download
+import joblib
 
-# Load trained model + label encoder
-model = joblib.load("geofence_risk_model.pkl")
+# Download model from Hugging Face Hub (cached locally)
+model_path = hf_hub_download(
+    repo_id="baiter763/geo",           # your repo name
+    filename="geofence_risk_model.pkl" # file inside repo
+)
+
+# Load model
+model = joblib.load(model_path)
+print("✅ Model loaded successfully from Hugging Face Hub")
+
 label_encoder = joblib.load("label_encoder.pkl")
 
 # Feature order (must match training)
@@ -49,3 +58,4 @@ def predict_risk(timestamp, latitude, longitude):
 # Example usage
 if __name__ == "__main__":
     print(predict_risk("2025-09-19T15:22:03.988992", 10.9360826, 76.9544039))
+
